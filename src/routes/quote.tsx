@@ -10,7 +10,7 @@ import { seo } from "@/lib/seo";
 
 export const Route = createFileRoute("/quote")({
   validateSearch: (s: Record<string, unknown>): { product?: string } =>
-    typeof s.product === "string" ? { product: s.product.slice(0, 120) } : {},
+    typeof s["product"] === "string" ? { product: s["product"].slice(0, 120) } : {},
   head: () => seo("Request a Quote on WhatsApp", "Request a quote for custom T-shirts, corporate wear, embroidery or promotional merchandise in Kampala. Your enquiry opens in WhatsApp."),
   component: Quote,
 });
@@ -30,7 +30,7 @@ const OPTIONS = Array.from(new Set([...SERVICES.map((s) => s.title), ...PRODUCTS
 const EMPTY: QuoteData = { name: "", phone: "", product: "", quantity: "", colours: "", design: "", date: "", notes: "" };
 const KEY = "ix-quote-draft";
 
-function F({ k, req, err, children }: { k: keyof QuoteData; req?: boolean; err?: string; children: React.ReactNode }) {
+function F({ k, req, err, children }: { k: keyof QuoteData; req?: boolean; err?: string | undefined; children: React.ReactNode }) {
   return (
     <div>
       <label htmlFor={`f-${k}`} className="mb-2 block text-sm font-semibold text-espresso">{QUOTE_LABELS[k]}{req && <span className="text-terracotta-deep"> *</span>}</label>

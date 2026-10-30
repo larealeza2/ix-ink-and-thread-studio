@@ -11,7 +11,7 @@ export const Route = createFileRoute("/about")({
 });
 
 // Each block: replace `hint` with approved text, or delete the entry.
-const BLOCKS = [
+const BLOCKS: [string, string][] = [
   ["Founding story", "Add approved founding story here."],
   ["History", "Add verified company history here."],
   ["Mission", "Add approved mission statement here."],
