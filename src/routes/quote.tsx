@@ -86,7 +86,8 @@ function Quote() {
 
   const send = () => {
     setBusy(true);
-    const w = window.open(url, "_blank", "noopener,noreferrer");
+    const w = window.open(url, "_blank");
+    if (w) w.opener = null;
     setTimeout(() => {
       setBusy(false);
       setBlocked(!w);
