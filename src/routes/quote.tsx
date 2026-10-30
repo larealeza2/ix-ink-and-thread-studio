@@ -4,6 +4,7 @@ import { z } from "zod";
 import { MessageCircle, Pencil, Copy, Info, Loader2 } from "lucide-react";
 import { buildQuoteMessage, waLink, QUOTE_LABELS, type QuoteData } from "@/lib/whatsapp";
 import { PRODUCTS, SERVICES } from "@/data/catalog";
+import { SITE } from "@/config/site";
 import { PageHero } from "@/components/site/bits";
 import { seo } from "@/lib/seo";
 
@@ -28,6 +29,16 @@ const schema = z.object({
 const OPTIONS = Array.from(new Set([...SERVICES.map((s) => s.title), ...PRODUCTS.map((p) => p.name), "Other"]));
 const EMPTY: QuoteData = { name: "", phone: "", product: "", quantity: "", colours: "", design: "", date: "", notes: "" };
 const KEY = "ix-quote-draft";
+
+function F({ k, req, err, children }: { k: keyof QuoteData; req?: boolean; err?: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <label htmlFor={`f-${k}`} className="mb-2 block text-sm font-semibold text-espresso">{QUOTE_LABELS[k]}{req && <span className="text-terracotta-deep"> *</span>}</label>
+      {children}
+      {err && <p id={`e-${k}`} role="alert" className="mt-1.5 text-sm text-destructive">{err}</p>}
+    </div>
+  );
+}
 
 function Quote() {
   const { product } = Route.useSearch();
@@ -87,13 +98,6 @@ function Quote() {
     try { await navigator.clipboard.writeText(message); setCopied(true); } catch { setCopied(false); }
   };
 
-  const F = ({ k, req, children }: { k: keyof QuoteData; req?: boolean; children: React.ReactNode }) => (
-    <div>
-      <label htmlFor={`f-${k}`} className="mb-2 block text-sm font-semibold text-espresso">{QUOTE_LABELS[k]}{req && <span className="text-terracotta-deep"> *</span>}</label>
-      {children}
-      {errors[k] && <p id={`e-${k}`} role="alert" className="mt-1.5 text-sm text-destructive">{errors[k]}</p>}
-    </div>
-  );
   const a = (k: keyof QuoteData) => ({ id: `f-${k}`, value: data[k] ?? "", onChange: set(k), "aria-invalid": !!errors[k], "aria-describedby": errors[k] ? `e-${k}` : undefined, className: "field" });
 
   return (
@@ -110,19 +114,19 @@ function Quote() {
 
           {step === "form" && (
             <form onSubmit={review} noValidate className="grid gap-6 md:grid-cols-2">
-              <F k="name" req><input {...a("name")} autoComplete="name" maxLength={100} /></F>
-              <F k="phone" req><input {...a("phone")} type="tel" autoComplete="tel" inputMode="tel" placeholder="+256 …" maxLength={20} /></F>
-              <F k="product" req>
+              <F k="name" err={errors.name} req><input {...a("name")} autoComplete="name" maxLength={100} /></F>
+              <F k="phone" err={errors.phone} req><input {...a("phone")} type="tel" autoComplete="tel" inputMode="tel" placeholder="+256 …" maxLength={20} /></F>
+              <F k="product" err={errors.product} req>
                 <select {...a("product")}>
                   <option value="">Select…</option>
                   {[...(data.product && !OPTIONS.includes(data.product) ? [data.product] : []), ...OPTIONS].map((o) => <option key={o}>{o}</option>)}
                 </select>
               </F>
-              <F k="quantity" req><input {...a("quantity")} inputMode="numeric" placeholder="e.g. 50" maxLength={40} /></F>
-              <F k="colours"><input {...a("colours")} placeholder="e.g. Olive shirts, white logo" maxLength={200} /></F>
-              <F k="date"><input {...a("date")} type="date" /></F>
-              <div className="md:col-span-2"><F k="design"><textarea {...a("design")} rows={3} placeholder="Logo placement, print or embroidery, artwork ready?" maxLength={600} /></F></div>
-              <div className="md:col-span-2"><F k="notes"><textarea {...a("notes")} rows={3} maxLength={1000} /></F></div>
+              <F k="quantity" err={errors.quantity} req><input {...a("quantity")} inputMode="numeric" placeholder="e.g. 50" maxLength={40} /></F>
+              <F k="colours" err={errors.colours}><input {...a("colours")} placeholder="e.g. Olive shirts, white logo" maxLength={200} /></F>
+              <F k="date" err={errors.date}><input {...a("date")} type="date" /></F>
+              <div className="md:col-span-2"><F k="design" err={errors.design}><textarea {...a("design")} rows={3} placeholder="Logo placement, print or embroidery, artwork ready?" maxLength={600} /></F></div>
+              <div className="md:col-span-2"><F k="notes" err={errors.notes}><textarea {...a("notes")} rows={3} maxLength={1000} /></F></div>
               <div className="flex flex-col gap-3 md:col-span-2 sm:flex-row sm:items-center sm:justify-between">
                 <p className="text-sm text-muted-foreground">* Required. Your entries are saved on this device until sent.</p>
                 <button type="submit" className="btn btn-primary">Review enquiry</button>
@@ -146,7 +150,7 @@ function Quote() {
               </div>
               {step === "sent" && (
                 <div role="status" className="mt-6 rounded-2xl border border-terracotta p-5 text-sm text-espresso">
-                  {blocked ? <p><strong>WhatsApp didn't open.</strong> Use the link below, or copy your message and send it to {`+${"256759606713".replace(/^(\d{3})(\d{3})(\d{3})(\d{3})$/, "$1 $2 $3 $4")}`}.</p>
+                  {blocked ? <p><strong>WhatsApp didn't open.</strong> Use the link below, or copy your message and send it to {SITE.phoneDisplay}.</p>
                     : <p>Did WhatsApp not open? Use the link below or copy your message. Remember to press Send.</p>}
                   <div className="mt-4 flex flex-wrap gap-3">
                     <a href={url} target="_blank" rel="noopener noreferrer" className="btn btn-whatsapp !min-h-11">Open WhatsApp</a>
