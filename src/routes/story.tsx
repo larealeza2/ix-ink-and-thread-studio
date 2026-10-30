@@ -37,14 +37,14 @@ function Story() {
       </section>
       <section className="bg-sand-soft py-16 md:py-24">
         <div className="container-x grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {[
+          {([
             ["Achievements", "Add verified achievement here."],
             ["Awards", "Add verified award here."],
             ["Certifications", "Add verified certification here."],
             ["Team highlights", "Add approved team highlights here."],
             ["Production capabilities", "Add confirmed equipment and capabilities here."],
             ["Community involvement", "Add approved community work here."],
-          ].map(([t, h], i) => (
+          ] as [string, string][]).map(([t, h], i) => (
             <Reveal key={t} delay={(i % 3) * 80}><Placeholder title={t} hint={h} className="h-full" /></Reveal>
           ))}
         </div>

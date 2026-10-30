@@ -51,10 +51,10 @@ function Work() {
       </section>
       <dialog ref={dlg} onClose={() => setActive(null)} onClick={(e) => e.target === dlg.current && setActive(null)}
         className="m-auto max-h-[90vh] max-w-5xl overflow-hidden rounded-2xl bg-espresso p-0 backdrop:bg-espresso/80">
-        {active !== null && (
+        {active !== null && WORK[active] && (
           <figure className="relative">
-            <img src={WORK[active].img} alt={WORK[active].alt} className="max-h-[85vh] w-auto object-contain" />
-            <figcaption className="p-4 text-sm text-warm">{WORK[active].category} · sample visual</figcaption>
+            <img src={WORK[active]!.img} alt={WORK[active]!.alt} className="max-h-[85vh] w-auto object-contain" />
+            <figcaption className="p-4 text-sm text-warm">{WORK[active]!.category} · sample visual</figcaption>
             <button type="button" autoFocus onClick={() => setActive(null)} aria-label="Close" className="absolute right-3 top-3 inline-flex h-11 w-11 items-center justify-center rounded-full bg-warm text-espresso"><X /></button>
           </figure>
         )}
