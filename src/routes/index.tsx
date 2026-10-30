@@ -22,7 +22,7 @@ const HERO = {
   text: "Custom apparel, printing and branding solutions designed to help your business stand out.",
 };
 
-const ICONS = [Shirt, Briefcase, Scissors, Gift];
+const ICONS: typeof Shirt[] = [Shirt, Briefcase, Scissors, Gift];
 const FEATURED = ["T-shirts", "Caps", "Hoodies", "Corporate shirts", "Promotional merchandise"].map(
   (c) => PRODUCTS.find((p) => p.category === c)!,
 );
@@ -59,7 +59,7 @@ function Home() {
         </div>
         <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {SERVICES.map((s, i) => {
-            const Icon = ICONS[i];
+            const Icon = ICONS[i] ?? Shirt;
             return (
               <Reveal key={s.id} delay={i * 90}>
                 <Link to="/services" hash={s.id} className="group flex h-full flex-col rounded-2xl border border-border bg-card p-7 transition-colors duration-300 hover:border-terracotta">
