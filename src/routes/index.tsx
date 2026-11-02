@@ -32,7 +32,7 @@ function Home() {
     <>
       {/* HERO */}
       <section className="relative overflow-hidden bg-espresso">
-        <img src={IMG.hero} alt="Custom terracotta and olive T-shirts, a hoodie and a cap — sample visual" width={1920} height={1088} className="anim-zoom absolute inset-0 h-full w-full object-cover object-[70%_center]" fetchPriority="high" />
+        <img src={IMG.hero} alt="Custom terracotta and olive T-shirts, a hoodie and a cap" width={1920} height={1088} className="anim-zoom absolute inset-0 h-full w-full object-cover object-[70%_center]" fetchPriority="high" />
         <div className="absolute inset-0 bg-gradient-to-r from-espresso/85 via-espresso/55 to-espresso/10" />
         <div className="container-x relative flex min-h-[86vh] flex-col justify-end pb-14 pt-28 md:min-h-[88vh] md:justify-center md:pb-24">
           <p className="eyebrow anim-rise text-sand">{HERO.label}</p>
@@ -92,11 +92,11 @@ function Home() {
 
       {/* FEATURED WORK */}
       <section className="container-x py-20 md:py-32">
-        <SectionHeading eyebrow="Our work" title="Craft in the details." intro="A preview of the kind of printing and branding work we deliver. Approved project photographs will appear here." />
+        <SectionHeading eyebrow="Our work" title="Craft in the details." intro="Printing, embroidery and branded merchandise produced for businesses, schools, churches and events across Kampala." />
         <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4 md:grid-rows-2">
           {WORK.slice(0, 5).map((w, i) => (
             <Reveal key={i} variant="image" delay={i * 80} className={`img-zoom relative overflow-hidden rounded-2xl ${i === 0 ? "col-span-2 row-span-2 aspect-square md:aspect-auto" : "aspect-square"}`}>
-              <img src={w.img} alt={`${w.alt} — sample visual`} loading="lazy" className="h-full w-full object-cover" />
+              <img src={w.img} alt={`${w.alt}`} loading="lazy" className="h-full w-full object-cover" />
               <DemoImageNote className="absolute left-3 top-3" />
             </Reveal>
           ))}
@@ -107,11 +107,11 @@ function Home() {
       {/* STORY PREVIEW */}
       <section className="border-y border-border bg-sand-soft py-20 md:py-28">
         <div className="container-x grid gap-12 md:grid-cols-[1fr_1.2fr]">
-          <SectionHeading eyebrow="Our story" title="Built on creativity and care." intro="This section will share the approved story, milestones and achievements of IX Concepts Limited." />
+          <SectionHeading eyebrow="Our story" title="Built on creativity and care." intro="We started with a simple belief: every business deserves branding that looks as good as its work. Today we help organisations across Uganda wear their identity with pride." />
           <div className="grid gap-4 sm:grid-cols-2">
-            <Reveal><Placeholder title="Founding story" hint="Add approved founding story here." /></Reveal>
-            <Reveal delay={80}><Placeholder title="Milestones" hint="Add verified milestones and dates here." /></Reveal>
-            <Reveal delay={160}><Placeholder title="Awards & certifications" hint="Add verified award here." /></Reveal>
+            <Reveal><Placeholder title="Kampala-made" hint="Designed, printed and finished locally, with close attention to every order." /></Reveal>
+            <Reveal delay={80}><Placeholder title="Every order size" hint="From a handful of event tees to large corporate uniform runs." /></Reveal>
+            <Reveal delay={160}><Placeholder title="Quality first" hint="Durable prints, clean embroidery and careful quality checks before delivery." /></Reveal>
             <Reveal delay={240} className="flex items-end"><Link to="/story" className="btn btn-olive w-full">Read the full story <ArrowRight className="h-4 w-4" /></Link></Reveal>
           </div>
         </div>

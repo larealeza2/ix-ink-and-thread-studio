@@ -38,9 +38,9 @@ function Contact() {
             {SITE.address ? <>{SITE.address}{SITE.mapsUrl && <a href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer" className="link-underline mt-1 block text-base text-terracotta-deep">Get directions</a>}</> : <TBC t={`${SITE.city} — exact address to be confirmed`} />}
           </Row>
           <Row icon={<Clock className="h-5 w-5" />} label="Opening hours">{SITE.openingHours ?? <TBC t="Opening hours to be confirmed" />}</Row>
-          <Row icon={<Share2 className="h-5 w-5" />} label="Social media">
-            {SITE.social.length ? SITE.social.map((s) => <a key={s.url} href={s.url} target="_blank" rel="noopener noreferrer" className="link-underline mr-4">{s.label}</a>) : <TBC t="Social profiles to be confirmed" />}
-          </Row>
+          {SITE.social.length > 0 && <Row icon={<Share2 className="h-5 w-5" />} label="Social media">
+            {SITE.social.map((s) => <a key={s.url} href={s.url} target="_blank" rel="noopener noreferrer" className="link-underline mr-4">{s.label}</a>)}
+          </Row>}
         </Reveal>
         <Reveal delay={120} className="self-start rounded-2xl bg-espresso p-8 text-warm md:p-10">
           <h2 className="text-3xl font-extrabold">Ready for a quote?</h2>
@@ -49,7 +49,6 @@ function Contact() {
             <Link to="/quote" className="btn btn-primary">Request a Quote</Link>
             <a href={waLink()} target="_blank" rel="noopener noreferrer" className="btn btn-light"><MessageCircle className="h-4 w-4" /> Chat on WhatsApp</a>
           </div>
-          <p className="mt-6 text-xs text-sand-soft/80">Contact number listed for demo purposes and pending confirmation by the business.</p>
         </Reveal>
       </section>
     </>

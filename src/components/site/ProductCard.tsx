@@ -7,7 +7,7 @@ export function ProductCard({ name, category, desc, img }: { name: string; categ
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-sand-soft transition-transform duration-500 hover:-translate-y-1">
       <div className="img-zoom relative aspect-[4/5]">
-        <img src={img} alt={`${name} — sample visual`} loading="lazy" width={896} height={1120} className="h-full w-full object-cover" />
+        <img src={img} alt={`${name}`} loading="lazy" width={896} height={1120} className="h-full w-full object-cover" />
         <DemoImageNote className="absolute left-3 top-3" />
       </div>
       <div className="flex flex-1 flex-col p-5">

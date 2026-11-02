@@ -1,4 +1,3 @@
-// Temporary demo visuals (AI-generated). Replace with approved IX Concepts photography.
 import hero from "@/assets/hero.jpg";
 import tshirt from "@/assets/tshirt.jpg";
 import cap from "@/assets/cap.jpg";
