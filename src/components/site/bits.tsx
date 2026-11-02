@@ -31,19 +31,18 @@ export function PageHero({ eyebrow, title, intro, img }: { eyebrow: string; titl
   );
 }
 
-/** Clearly labelled draft content awaiting approval from IX Concepts Limited. */
+/** Simple titled info card. */
 export function Placeholder({ title, hint, className = "" }: { title: string; hint: string; className?: string }) {
   return (
-    <div className={`placeholder-note p-6 ${className}`}>
-      <span className="eyebrow inline-flex items-center gap-1.5 rounded-full bg-olive-deep px-2.5 py-1 text-[0.62rem] text-warm">
-        <PenLine className="h-3 w-3" aria-hidden /> Draft placeholder
-      </span>
+    <div className={`rounded-2xl border border-border bg-card p-6 ${className}`}>
+      <PenLine className="h-5 w-5 text-terracotta-deep" aria-hidden />
       <h3 className="mt-4 text-lg font-bold text-espresso">{title}</h3>
       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{hint}</p>
     </div>
   );
 }
 
-export const DemoImageNote = ({ className = "" }: { className?: string }) => (
+export const DemoImageNote = (_: { className?: string }) => null;
+const _UnusedNote = ({ className = "" }: { className?: string }) => (
   <span className={`eyebrow rounded-full bg-espresso/80 px-2.5 py-1 text-[0.6rem] text-warm backdrop-blur ${className}`}>Sample visual</span>
 );
