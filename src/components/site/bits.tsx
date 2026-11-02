@@ -43,6 +43,4 @@ export function Placeholder({ title, hint, className = "" }: { title: string; hi
 }
 
 export const DemoImageNote = (_: { className?: string }) => null;
-const _UnusedNote = ({ className = "" }: { className?: string }) => (
-  <span className={`eyebrow rounded-full bg-espresso/80 px-2.5 py-1 text-[0.6rem] text-warm backdrop-blur ${className}`}>Sample visual</span>
-);
+
