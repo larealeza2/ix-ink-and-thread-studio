@@ -19,7 +19,7 @@ function Services() {
         {SERVICES.map((s, i) => (
           <section key={s.id} id={s.id} className="scroll-mt-28 grid items-center gap-10 border-b border-border py-14 last:border-0 md:grid-cols-2 md:gap-20">
             <Reveal variant="image" className={`img-zoom relative aspect-[4/3] overflow-hidden rounded-2xl ${i % 2 ? "md:order-2" : ""}`}>
-              <img src={s.img} alt={`${s.title} — sample visual`} loading="lazy" className="h-full w-full object-cover" />
+              <img src={s.img} alt={`${s.title}`} loading="lazy" className="h-full w-full object-cover" />
               <DemoImageNote className="absolute left-3 top-3" />
             </Reveal>
             <Reveal>

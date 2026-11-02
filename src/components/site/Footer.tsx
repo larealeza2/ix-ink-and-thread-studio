@@ -37,7 +37,7 @@ export function Footer() {
       <div className="border-t border-warm/10">
         <div className="container-x flex flex-col gap-2 py-6 text-xs text-sand-soft/80 md:flex-row md:justify-between">
           <p>© {new Date().getFullYear()} {SITE.name}. All rights reserved.</p>
-          <p>Imagery shown is sample visuals for demonstration.</p>
+          <p>Printing · Embroidery · Custom Apparel · Kampala</p>
         </div>
       </div>
     </footer>

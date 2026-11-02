@@ -10,18 +10,13 @@ export const Route = createFileRoute("/about")({
   component: About,
 });
 
-// Each block: replace `hint` with approved text, or delete the entry.
 const BLOCKS: [string, string][] = [
-  ["Founding story", "Add approved founding story here."],
-  ["History", "Add verified company history here."],
-  ["Mission", "Add approved mission statement here."],
-  ["Vision", "Add approved vision statement here."],
-  ["Values", "Add approved company values here."],
-  ["Team", "Add approved team introduction and photos here."],
-  ["Achievements", "Add verified achievements here."],
-  ["Awards", "Add verified award here."],
-  ["Certifications", "Add verified certifications here."],
-  ["Community involvement", "Add approved community initiatives here."],
+  ["Mission", "To help businesses and organisations in Uganda stand out through high-quality printing, custom apparel and branded merchandise."],
+  ["Vision", "To be Kampala's most trusted partner for creative, wearable branding."],
+  ["Creativity", "We bring fresh ideas to every design and help your artwork look its best on fabric."],
+  ["Quality", "We use reliable materials and check every piece before it leaves our studio."],
+  ["Reliability", "Clear quotes, honest timelines and delivery when we say we will."],
+  ["Our team", "Designers, printers and embroidery specialists who care about the details of your brand."],
 ];
 
 function About() {
@@ -38,7 +33,7 @@ function About() {
       </section>
       <section className="bg-sand-soft py-16 md:py-24">
         <div className="container-x">
-          <SectionHeading eyebrow="To be confirmed" title="Company profile" intro="These sections are awaiting approved information from IX Concepts Limited." />
+          <SectionHeading eyebrow="Who we are" title="What drives us" intro="The principles behind every T-shirt, cap and uniform we produce." />
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {BLOCKS.map(([t, h], i) => (
               <Reveal key={t} delay={(i % 3) * 80}><Placeholder title={t} hint={h} className="h-full" /></Reveal>

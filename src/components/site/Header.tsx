@@ -5,7 +5,6 @@ import { NAV, SITE } from "@/config/site";
 import { waLink } from "@/lib/whatsapp";
 
 export function Logo({ light = false }: { light?: boolean }) {
-  // Temporary editable wordmark — replace with the approved IX Concepts logo.
   return (
     <span className={`flex items-baseline gap-1.5 font-display ${light ? "text-warm" : "text-espresso"}`}>
       <span className="text-2xl font-extrabold tracking-tight">IX</span>
