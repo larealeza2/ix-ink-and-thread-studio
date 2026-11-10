@@ -1,64 +1,10 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { X, Expand } from "lucide-react";
-import { WORK, WORK_CATEGORIES, IMG } from "@/data/catalog";
-import { PageHero, DemoImageNote } from "@/components/site/bits";
-import { CtaBand } from "./index";
+import { X, Expand, ArrowUpRight } from "lucide-react";
+import { WORK, WORK_CATEGORIES, COLLECTIONS } from "@/data/catalog";
+import { PageHero } from "@/components/site/bits";
+import { CtaBand } from "@/components/site/CtaBand";
+import { Button } from "@/components/ui/button";
 import { seo } from "@/lib/seo";
-
-export const Route = createFileRoute("/work")({
-  head: () => seo("Our Work — Printing, Embroidery & Branding Gallery", "Gallery of apparel printing, embroidery, corporate wear and promotional product branding by IX Concepts Limited, Kampala."),
-  component: Work,
-});
-
-function Work() {
-  const [cat, setCat] = useState<string>("All");
-  const [active, setActive] = useState<number | null>(null);
-  const dlg = useRef<HTMLDialogElement>(null);
-  const list = cat === "All" ? WORK : WORK.filter((w) => w.category === cat);
-
-  useEffect(() => {
-    if (active !== null) dlg.current?.showModal();
-    else dlg.current?.close();
-  }, [active]);
-
-  return (
-    <>
-      <PageHero eyebrow="Our work" title="Branding, up close." intro="Printing, embroidery and branded merchandise produced in our Kampala studio." img={IMG.embroidery} />
-      <section className="container-x py-14 md:py-20">
-        <div role="group" aria-label="Filter gallery" className="-mx-5 flex gap-2 overflow-x-auto px-5 pb-2 md:mx-0 md:flex-wrap md:px-0">
-          {["All", ...WORK_CATEGORIES].map((c) => (
-            <button key={c} type="button" aria-pressed={cat === c} onClick={() => setCat(c)}
-              className={`btn !min-h-10 shrink-0 !px-4 !text-sm ${cat === c ? "bg-espresso text-warm" : "border border-border bg-card text-espresso hover:border-espresso"}`}>{c}</button>
-          ))}
-        </div>
-        <div className="mt-10 columns-1 gap-4 sm:columns-2 lg:columns-3">
-          {list.map((w) => {
-            const idx = WORK.indexOf(w);
-            return (
-              <button key={idx} type="button" onClick={() => setActive(idx)} aria-label={`Enlarge: ${w.alt}`}
-                className="img-zoom anim-rise group relative mb-4 block w-full overflow-hidden rounded-2xl break-inside-avoid">
-                <img src={w.img} alt={`${w.alt} `} loading="lazy" className={`w-full object-cover ${w.tall ? "aspect-[4/5]" : "aspect-[4/3]"}`} />
-                <DemoImageNote className="absolute left-3 top-3" />
-                <span className="absolute inset-x-0 bottom-0 flex items-center justify-between bg-gradient-to-t from-espresso/80 to-transparent p-4 text-sm font-semibold text-warm opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
-                  {w.category} <Expand className="h-4 w-4" />
-                </span>
-              </button>
-            );
-          })}
-        </div>
-      </section>
-      <dialog ref={dlg} onClose={() => setActive(null)} onClick={(e) => e.target === dlg.current && setActive(null)}
-        className="m-auto max-h-[90vh] max-w-5xl overflow-hidden rounded-2xl bg-espresso p-0 backdrop:bg-espresso/80">
-        {active !== null && WORK[active] && (
-          <figure className="relative">
-            <img src={WORK[active]!.img} alt={WORK[active]!.alt} className="max-h-[85vh] w-auto object-contain" />
-            <figcaption className="p-4 text-sm text-warm">{WORK[active]!.category}</figcaption>
-            <button type="button" autoFocus onClick={() => setActive(null)} aria-label="Close" className="absolute right-3 top-3 inline-flex h-11 w-11 items-center justify-center rounded-full bg-warm text-espresso"><X /></button>
-          </figure>
-        )}
-      </dialog>
-      <CtaBand />
-    </>
-  );
-}
+export const Route = createFileRoute("/work")({ head: () => seo("Work — Merchandise Concepts & Creative Direction", "Explore the objectives, creative direction and branding applications behind IX Concepts merchandise concept campaigns in Kampala."), component: Work });
+function Work() { const [cat,setCat] = useState("All"); const [active,setActive] = useState<number|null>(null); const dlg = useRef<HTMLDialogElement>(null); const selected = active === null ? undefined : WORK[active]; const list = cat === "All" ? WORK : WORK.filter(w => w.category === cat); useEffect(() => { if (active !== null) dlg.current?.showModal(); else dlg.current?.close(); },[active]); return <><PageHero eyebrow="Selected work" title="The thinking behind the things." intro="A closer look at coordinated identities, purposeful products and considered details. These concept demonstrations show creative possibilities, not claimed client projects." /><section className="container-x py-14 md:py-20"><div className="grid gap-12 md:grid-cols-2">{COLLECTIONS.map(c => <article key={c.slug}><Link to="/work/$slug" params={{slug:c.slug}} className="img-zoom block"><img src={c.img} alt={`${c.brand} merchandise concept campaign`} loading="lazy" width={1536} height={1024} className="aspect-[3/2] w-full rounded object-cover" /></Link><p className="concept-label mt-5 text-muted-foreground">Concept Demonstration · {c.type}</p><h2 className="mt-3 text-2xl font-bold">{c.brand} / {c.name}</h2><p className="mt-3 text-sm leading-relaxed text-muted-foreground">{c.description}</p><Link to="/work/$slug" params={{slug:c.slug}} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-terracotta-deep">View details <ArrowUpRight size={17} /></Link></article>)}</div><div className="mt-20 border-t border-border pt-12"><h2 className="text-3xl font-bold">Materials & making.</h2><p className="mt-3 text-sm text-muted-foreground">Illustrative studies of apparel, branding and production details.</p><div role="group" aria-label="Filter gallery" className="mt-7 flex flex-wrap gap-2">{["All",...WORK_CATEGORIES].map(c => <Button key={c} variant="ghost" aria-pressed={cat === c} onClick={() => setCat(c)} className={cat === c ? "bg-espresso text-warm hover:bg-espresso hover:text-warm" : "border border-border"}>{c}</Button>)}</div><div className="mt-8 columns-1 gap-4 sm:columns-2 lg:columns-3">{list.map(w => <Button key={w.alt} variant="ghost" onClick={() => setActive(WORK.indexOf(w))} aria-label={`Enlarge: ${w.alt}`} className="img-zoom group relative mb-4 block h-auto w-full break-inside-avoid overflow-hidden rounded p-0"><img src={w.img} alt={w.alt} loading="lazy" className={`w-full object-cover ${w.tall ? "aspect-[4/5]" : "aspect-[4/3]"}`} /><span className="absolute bottom-3 right-3 rounded-full bg-background p-2 text-foreground"><Expand size={16} /></span></Button>)}</div></div></section><dialog ref={dlg} onClose={() => setActive(null)} onClick={e => e.target === dlg.current && setActive(null)} className="m-auto max-h-[90dvh] max-w-[90vw] overflow-auto rounded bg-background p-0 backdrop:bg-espresso/80">{selected && <figure className="relative"><img src={selected.img} alt={selected.alt} className="max-h-[75dvh] w-auto object-contain" /><figcaption className="p-4 text-sm">{selected.category} · Illustrative study</figcaption><Button variant="secondary" size="icon" autoFocus onClick={() => setActive(null)} aria-label="Close" className="absolute right-3 top-3"><X /></Button></figure>}</dialog><CtaBand /></>; }

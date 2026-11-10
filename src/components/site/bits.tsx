@@ -13,28 +13,16 @@ export function SectionHeading({ eyebrow, title, intro, light = false }: { eyebr
 }
 
 export function PageHero({ eyebrow, title, intro, img }: { eyebrow: string; title: string; intro: string; img?: string }) {
-  return (
-    <section className="border-b border-border bg-sand-soft">
-      <div className="container-x grid items-end gap-10 py-14 md:grid-cols-[1.3fr_1fr] md:py-24">
-        <div>
-          <p className="eyebrow anim-rise text-terracotta-deep">{eyebrow}</p>
-          <h1 className="anim-rise mt-4 text-4xl font-extrabold leading-[1] text-espresso md:text-7xl" style={{ animationDelay: "80ms" }}>{title}</h1>
-          <p className="anim-rise mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground" style={{ animationDelay: "160ms" }}>{intro}</p>
-        </div>
-        {img && (
-          <div className="anim-rise hidden aspect-[4/3] overflow-hidden rounded-2xl md:block" style={{ animationDelay: "240ms" }}>
-            <img src={img} alt="" className="anim-zoom h-full w-full object-cover" width={1280} height={960} />
-          </div>
-        )}
-      </div>
-    </section>
-  );
+  return <section className="relative overflow-hidden border-b border-border bg-background">
+    {img && <img src={img} alt="" width={1920} height={1280} className="absolute inset-0 h-full w-full object-cover object-center opacity-15" />}
+    <div className="container-x relative py-14 md:py-24"><p className="eyebrow anim-rise text-terracotta-deep">{eyebrow}</p><h1 className="anim-rise mt-5 max-w-4xl text-4xl font-extrabold leading-tight md:text-6xl">{title}</h1><p className="anim-rise mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">{intro}</p></div>
+  </section>;
 }
 
 /** Simple titled info card. */
 export function Placeholder({ title, hint, className = "" }: { title: string; hint: string; className?: string }) {
   return (
-    <div className={`rounded-2xl border border-border bg-card p-6 ${className}`}>
+    <div className={`border-t border-border py-6 ${className}`}>
       <PenLine className="h-5 w-5 text-terracotta-deep" aria-hidden />
       <h3 className="mt-4 text-lg font-bold text-espresso">{title}</h3>
       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{hint}</p>

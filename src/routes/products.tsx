@@ -1,36 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { CATEGORIES, PRODUCTS, IMG, type Category } from "@/data/catalog";
+import { Search, X } from "lucide-react";
+import { CATEGORIES, PRODUCTS, type Category } from "@/data/catalog";
 import { PageHero } from "@/components/site/bits";
 import { ProductCard } from "@/components/site/ProductCard";
+import { Button } from "@/components/ui/button";
 import { seo } from "@/lib/seo";
-
-export const Route = createFileRoute("/products")({
-  head: () => seo("Products — T-shirts, Caps, Hoodies & Promotional Merchandise", "Browse custom T-shirts, caps, hoodies, corporate shirts, uniforms and promotional merchandise in Uganda. Enquire for a quote."),
-  component: Products,
-});
-
+export const Route = createFileRoute("/products")({ validateSearch: (s: Record<string, unknown>): { category?: Category } => CATEGORIES.includes(s.category as Category) ? { category: s.category as Category } : {}, head: () => seo("The Product Edit — Branded Merchandise", "Explore custom apparel, drinkware, stationery, bags, corporate gifts and accessories. Build a multi-product quote with IX Concepts in Kampala."), component: Products });
 function Products() {
-  const [cat, setCat] = useState<Category | "All">("All");
-  const list = cat === "All" ? PRODUCTS : PRODUCTS.filter((p) => p.category === cat);
-  return (
-    <>
-      <PageHero eyebrow="Products" title="Choose it. Brand it." intro="Explore the products we customise. Pricing depends on quantity and design — send an enquiry and we'll prepare a quote." img={IMG.hero} />
-      <section className="container-x py-14 md:py-20">
-        <div role="group" aria-label="Filter by category" className="-mx-5 flex gap-2 overflow-x-auto px-5 pb-2 md:mx-0 md:flex-wrap md:px-0">
-          {(["All", ...CATEGORIES] as const).map((c) => (
-            <button key={c} type="button" aria-pressed={cat === c} onClick={() => setCat(c)}
-              className={`btn !min-h-10 shrink-0 !px-4 !text-sm ${cat === c ? "bg-espresso text-warm" : "border border-border bg-card text-espresso hover:border-espresso"}`}>
-              {c}
-            </button>
-          ))}
-        </div>
-        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {list.map((p) => (
-            <div key={p.name} className="anim-rise"><ProductCard {...p} /></div>
-          ))}
-        </div>
-      </section>
-    </>
-  );
+ const { category } = Route.useSearch(); const navigate = Route.useNavigate(); const [query, setQuery] = useState(""); const cat = category ?? "All";
+ const list = PRODUCTS.filter(p => (cat === "All" || p.category === cat) && `${p.name} ${p.desc}`.toLowerCase().includes(query.toLowerCase()));
+ return <><PageHero eyebrow="The product edit" title="Choose it. Make it yours." intro="Apparel, useful objects and thoughtful gifts — all brought together by your identity. Every project is quoted around your quantities and customisation." /><section className="container-x py-10 md:py-16"><div className="flex flex-col justify-between gap-6 xl:flex-row xl:items-center"><div role="group" aria-label="Filter by category" className="flex flex-wrap gap-2">{(["All",...CATEGORIES] as const).map(c => <Button key={c} variant="ghost" aria-pressed={cat === c} onClick={() => navigate({ search: c === "All" ? {} : { category: c } })} className={`h-10 px-3 text-xs ${cat === c ? "bg-espresso text-warm hover:bg-espresso hover:text-warm" : "border border-border"}`}>{c}</Button>)}</div><div className="relative xl:w-56"><Search className="absolute left-3 top-3 text-muted-foreground" size={16} /><input aria-label="Search products" placeholder="Search the edit" value={query} onChange={e => setQuery(e.target.value)} className="field !min-h-10 !py-2 !pl-9 !text-sm" /></div></div><p className="mt-6 text-xs text-muted-foreground">{list.length} products · Custom branding by enquiry</p><div className="mt-8 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">{list.map(p => <ProductCard key={p.name} {...p} />)}</div>{list.length === 0 && <div className="py-20 text-center"><h2 className="text-xl font-bold">No products found</h2><Button variant="link" onClick={() => { setQuery(""); navigate({ search: {} }); }}><X /> Clear filters</Button></div>}<p className="mt-10 text-xs text-muted-foreground">Product imagery includes illustrative brand concepts. Materials, availability and branding options are confirmed with your quotation.</p></section></>;
 }
