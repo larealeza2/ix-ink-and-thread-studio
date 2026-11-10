@@ -22,8 +22,9 @@ export const SITE = {
 
 export const NAV = [
   { to: "/", label: "Home" },
-  { to: "/services", label: "Services" },
   { to: "/products", label: "Products" },
+  { to: "/collections", label: "Collections" },
+  { to: "/services", label: "Services" },
   { to: "/work", label: "Our Work" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
