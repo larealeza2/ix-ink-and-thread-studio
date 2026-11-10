@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { X, Expand } from "lucide-react";
 import { WORK, WORK_CATEGORIES, IMG } from "@/data/catalog";
 import { PageHero, DemoImageNote } from "@/components/site/bits";
-import { CtaBand } from "./index";
+import { CtaBand } from "@/components/site/CtaBand";
 import { seo } from "@/lib/seo";
 
 export const Route = createFileRoute("/work")({

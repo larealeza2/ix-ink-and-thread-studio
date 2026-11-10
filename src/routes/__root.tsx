@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { QuoteBasketProvider } from "@/components/site/QuoteBasket";
 import { Header } from "@/components/site/Header";
 import { Footer, WhatsAppFloat } from "@/components/site/Footer";
 
@@ -118,12 +119,14 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-espresso focus:px-4 focus:py-2 focus:text-warm">Skip to content</a>
+      <QuoteBasketProvider>
       <Header />
       <main id="main">
         <Outlet />
       </main>
       <Footer />
       <WhatsAppFloat />
+      </QuoteBasketProvider>
     </QueryClientProvider>
   );
 }

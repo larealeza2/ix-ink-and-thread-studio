@@ -14,6 +14,7 @@ export type QuoteData = {
   design?: string;
   date?: string;
   notes?: string;
+  items?: string;
 };
 
 export const QUOTE_LABELS: Record<keyof QuoteData, string> = {
@@ -25,6 +26,7 @@ export const QUOTE_LABELS: Record<keyof QuoteData, string> = {
   design: "Design / branding requirements",
   date: "Required completion date",
   notes: "Additional information",
+  items: "Selected products",
 };
 
 export function buildQuoteMessage(d: QuoteData) {
@@ -36,3 +38,6 @@ export function buildQuoteMessage(d: QuoteData) {
 
 export const productEnquiry = (name: string) =>
   waLink(`Hello ${SITE.shortName}, I'd like to enquire about: ${name}.`);
+
+export const collectionEnquiry = (name: string, products: string[]) =>
+  waLink(`Hello ${SITE.shortName}, I’d like to discuss a collection: ${name}. Products: ${products.join(", ")}. Please adapt this to my brand.`);

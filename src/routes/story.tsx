@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { IMG } from "@/data/catalog";
 import { PageHero, Placeholder, SectionHeading } from "@/components/site/bits";
 import { Reveal } from "@/components/site/Reveal";
-import { CtaBand } from "./index";
+import { CtaBand } from "@/components/site/CtaBand";
 import { seo } from "@/lib/seo";
 
 export const Route = createFileRoute("/story")({

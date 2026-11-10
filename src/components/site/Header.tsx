@@ -2,14 +2,15 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X, MessageCircle } from "lucide-react";
 import { NAV, SITE } from "@/config/site";
+import { Button } from "@/components/ui/button";
 import { waLink } from "@/lib/whatsapp";
 
 export function Logo({ light = false }: { light?: boolean }) {
   return (
     <span className={`flex items-baseline gap-1.5 font-display ${light ? "text-warm" : "text-espresso"}`}>
-      <span className="text-2xl font-extrabold tracking-tight">IX</span>
+      <span className="text-2xl font-extrabold ">IX</span>
       <span className="h-1.5 w-1.5 rounded-full bg-terracotta" aria-hidden />
-      <span className="text-sm font-semibold tracking-wide">Concepts</span>
+      <span className="text-sm font-semibold ">Concepts</span>
     </span>
   );
 }
@@ -41,7 +42,7 @@ export function Header() {
           <Logo />
         </Link>
         <nav aria-label="Main" className="hidden lg:block">
-          <ul className="flex items-center gap-7">
+          <ul className="flex items-center gap-5">
             {NAV.map((n) => (
               <li key={n.to}>
                 <Link
@@ -58,11 +59,11 @@ export function Header() {
           </ul>
         </nav>
         <div className="flex items-center gap-2">
-          <a href={waLink()} target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp" className="btn btn-secondary hidden !min-h-11 !px-4 md:inline-flex">
+          <a href={waLink()} target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp" className="btn btn-secondary hidden !min-h-11 !px-4 xl:inline-flex">
             <MessageCircle className="h-4 w-4" /> WhatsApp
           </a>
           <Link to="/quote" className="btn btn-primary hidden !min-h-11 sm:inline-flex">Request a Quote</Link>
-          <button
+          <Button variant="ghost"
             type="button"
             className="inline-flex h-11 w-11 items-center justify-center rounded-full text-espresso lg:hidden"
             aria-expanded={open}
@@ -71,7 +72,7 @@ export function Header() {
             onClick={() => setOpen((o) => !o)}
           >
             {open ? <X /> : <Menu />}
-          </button>
+          </Button>
         </div>
       </div>
       {open && (

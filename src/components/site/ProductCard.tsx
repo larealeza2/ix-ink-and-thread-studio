@@ -1,28 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { MessageCircle, ArrowUpRight } from "lucide-react";
+import { MessageCircle, Plus, Check } from "lucide-react";
 import { productEnquiry } from "@/lib/whatsapp";
-import { DemoImageNote } from "./bits";
-
-export function ProductCard({ name, category, desc, img }: { name: string; category: string; desc?: string; img: string }) {
-  return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-sand-soft transition-transform duration-500 hover:-translate-y-1">
-      <div className="img-zoom relative aspect-[4/5]">
-        <img src={img} alt={`${name}`} loading="lazy" width={896} height={1120} className="h-full w-full object-cover" />
-        <DemoImageNote className="absolute left-3 top-3" />
-      </div>
-      <div className="flex flex-1 flex-col p-5">
-        <p className="eyebrow text-olive-deep">{category}</p>
-        <h3 className="mt-1.5 text-lg font-bold text-espresso">{name}</h3>
-        {desc && <p className="mt-1 text-sm text-muted-foreground">{desc}</p>}
-        <div className="mt-auto flex flex-wrap gap-2 pt-5">
-          <a href={productEnquiry(name)} target="_blank" rel="noopener noreferrer" className="btn btn-primary !min-h-10 flex-1 !px-4 !text-sm">
-            <MessageCircle className="h-4 w-4" /> Enquire
-          </a>
-          <Link to="/quote" search={{ product: name }} aria-label={`Request a quote for ${name}`} className="btn btn-secondary !min-h-10 !px-3.5 !text-sm">
-            Quote <ArrowUpRight className="h-4 w-4" />
-          </Link>
-        </div>
-      </div>
-    </article>
-  );
+import { useQuoteBasket } from "./QuoteBasket";
+import { Button } from "@/components/ui/button";
+export function ProductCard({ name, category, desc, img, branding }: { name: string; category: string; desc?: string; img: string; branding?: string }) {
+ const { items, toggle } = useQuoteBasket(); const selected = items.includes(name);
+ return <article className="group flex h-full flex-col"><Link to="/quote" search={{ product: name }} aria-label={`Request a quote for ${name}`} className="img-zoom product-image block aspect-[4/5] overflow-hidden rounded"><img src={img} alt={name} loading="lazy" width={768} height={960} className="h-full w-full object-cover" /></Link><div className="flex flex-1 flex-col pt-5"><p className="eyebrow text-olive-deep">{category}{branding && <span className="ml-2 font-normal normal-case text-muted-foreground">/ {branding}</span>}</p><h3 className="mt-2 text-lg font-bold">{name}</h3>{desc && <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{desc}</p>}<div className="mt-auto flex items-center justify-between gap-2 border-b border-border pb-5 pt-5"><a href={productEnquiry(name)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-semibold text-terracotta-deep"><MessageCircle size={16} /> Enquire</a><Button variant="ghost" onClick={() => toggle(name)} aria-pressed={selected} aria-label={`${selected ? "Remove" : "Add"} ${name} ${selected ? "from" : "to"} quote`} className="h-10 px-2 text-sm">{selected ? <Check /> : <Plus />}{selected ? "Added" : "Add to quote"}</Button></div></div></article>;
 }
