@@ -14,4 +14,9 @@ describe("App routing", () => {
 
     expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
   });
+  it("matches collection and portfolio details independently of listing pages", () => {
+    const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
+    expect(router.matchRoutes("/collections/form-everyday").at(-1)?.routeId).toBe("/collections_/$slug");
+    expect(router.matchRoutes("/work/north-team").at(-1)?.routeId).toBe("/work_/$slug");
+  });
 });
