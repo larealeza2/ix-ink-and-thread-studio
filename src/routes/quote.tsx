@@ -165,14 +165,14 @@ function Quote() {
                     : <p>Did WhatsApp not open? Use the link below or copy your message. Remember to press Send.</p>}
                   <div className="mt-4 flex flex-wrap gap-3">
                     <a href={url} target="_blank" rel="noopener noreferrer" className="btn btn-whatsapp !min-h-11">Open WhatsApp</a>
-                    <Button type="button" onClick={copy} className="btn btn-secondary !min-h-11"><Copy className="h-4 w-4" /> {copied ? "Copied" : "Copy message"}</Button>
-                    <Button type="button" onClick={() => { try { localStorage.removeItem(KEY); } catch {} setData({ ...EMPTY }); setStep("form"); }} className="btn !min-h-11 text-muted-foreground underline">Start a new enquiry</Button>
+                    <Button variant="ghost" type="button" onClick={copy} className="btn btn-secondary !min-h-11"><Copy className="h-4 w-4" /> {copied ? "Copied" : "Copy message"}</Button>
+                    <Button variant="ghost" type="button" onClick={() => { try { localStorage.removeItem(KEY); } catch {} setData({ ...EMPTY }); setStep("form"); }} className="btn !min-h-11 text-muted-foreground underline">Start a new enquiry</Button>
                   </div>
                 </div>
               )}
               <div className="mt-8 flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
-                <Button type="button" onClick={() => setStep("form")} className="btn btn-secondary"><Pencil className="h-4 w-4" /> Edit details</Button>
-                <Button type="button" onClick={send} disabled={busy} className="btn btn-whatsapp">
+                <Button variant="ghost" type="button" onClick={() => setStep("form")} className="btn btn-secondary"><Pencil className="h-4 w-4" /> Edit details</Button>
+                <Button variant="ghost" type="button" onClick={send} disabled={busy} className="btn btn-whatsapp">
                   {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <MessageCircle className="h-4 w-4" />} Send Enquiry on WhatsApp
                 </Button>
               </div>
