@@ -6,7 +6,7 @@ import { PageHero } from "@/components/site/bits";
 import { ProductCard } from "@/components/site/ProductCard";
 import { Button } from "@/components/ui/button";
 import { seo } from "@/lib/seo";
-export const Route = createFileRoute("/products")({ validateSearch: (s: Record<string, unknown>): { category?: Category } => CATEGORIES.includes(s.category as Category) ? { category: s.category as Category } : {}, head: () => seo("The Product Edit — Branded Merchandise", "Explore custom apparel, drinkware, stationery, bags, corporate gifts and accessories. Build a multi-product quote with IX Concepts in Kampala."), component: Products });
+export const Route = createFileRoute("/products")({ validateSearch: (s: Record<string, unknown>): { category?: Category } => CATEGORIES.includes(s["category"] as Category) ? { category: s["category"] as Category } : {}, head: () => seo("The Product Edit — Branded Merchandise", "Explore custom apparel, drinkware, stationery, bags, corporate gifts and accessories. Build a multi-product quote with IX Concepts in Kampala."), component: Products });
 function Products() {
  const { category } = Route.useSearch(); const navigate = Route.useNavigate(); const [query, setQuery] = useState(""); const cat = category ?? "All";
  const list = PRODUCTS.filter(p => (cat === "All" || p.category === cat) && `${p.name} ${p.desc}`.toLowerCase().includes(query.toLowerCase()));
