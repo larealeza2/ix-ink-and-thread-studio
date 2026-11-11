@@ -10,7 +10,7 @@ export const Route = createFileRoute("/story")({
   component: Story,
 });
 
-// Replace each milestone with a verified year + description, or delete.
+// Narrative stages avoid unverified dates and awards.
 const MILESTONES = [
   { year: "The beginning", text: "IX Concepts starts in Kampala with T-shirt printing for local businesses and events." },
   { year: "Growing", text: "We add embroidery, caps and hoodies, serving schools, churches and corporate teams." },
@@ -21,9 +21,9 @@ const MILESTONES = [
 function Story() {
   return (
     <>
-      <PageHero eyebrow="Story & achievements" title="How we got here." intro="From a small printing setup to a full branding studio — the journey of IX Concepts Limited." img={IMG.printing} />
+      <PageHero eyebrow="Story & achievements" title="From a mark to a movement." intro="Our approach to building an identity that lives beyond a logo — through apparel, objects and thoughtful detail." img={IMG.printing} />
       <section className="container-x py-16 md:py-28">
-        <SectionHeading eyebrow="Milestones" title="Our journey" />
+        <SectionHeading eyebrow="Milestones" title="More than a printed logo" />
         <ol className="mt-12 border-l-2 border-sand">
           {MILESTONES.map((m, i) => (
             <Reveal as="li" key={i} delay={i * 80} className="relative pb-10 pl-8 last:pb-0">
@@ -37,10 +37,10 @@ function Story() {
       <section className="bg-sand-soft py-16 md:py-24">
         <div className="container-x grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {([
-            ["Screen printing", "Bold, long-lasting prints for bulk T-shirt and hoodie orders."],
+            ["Screen printing", "Bold prints for bulk T-shirt and hoodie orders."],
             ["Digital & DTF printing", "Full-colour, detailed artwork for short runs and custom pieces."],
             ["Embroidery", "Clean stitched logos on shirts, caps, uniforms and jackets."],
-            ["Corporate uniforms", "Consistent staff and security uniforms for teams of any size."],
+            ["Corporate uniforms", "Consistent staff and security uniforms specified around your team’s needs."],
             ["Promotional products", "Branded mugs, bags, notebooks and gifts for campaigns."],
             ["Community", "Proud to support schools, churches and local events in Kampala."],
           ] as [string, string][]).map(([t, h], i) => (

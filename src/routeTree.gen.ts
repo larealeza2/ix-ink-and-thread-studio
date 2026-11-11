@@ -18,8 +18,8 @@ import { Route as QuoteRouteImport } from './routes/quote'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as StoryRouteImport } from './routes/story'
 import { Route as WorkRouteImport } from './routes/work'
-import { Route as CollectionsSlugRouteImport } from './routes/collections.$slug'
-import { Route as WorkSlugRouteImport } from './routes/work.$slug'
+import { Route as CollectionsSlugRouteImport } from './routes/collections_.$slug'
+import { Route as WorkSlugRouteImport } from './routes/work_.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -67,39 +67,39 @@ const WorkRoute = WorkRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const CollectionsSlugRoute = CollectionsSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => CollectionsRoute,
+  id: '/collections_/$slug',
+  path: '/collections/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const WorkSlugRoute = WorkSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => WorkRoute,
+  id: '/work_/$slug',
+  path: '/work/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/collections': typeof CollectionsRouteWithChildren
+  '/collections': typeof CollectionsRoute
   '/contact': typeof ContactRoute
   '/products': typeof ProductsRoute
   '/quote': typeof QuoteRoute
   '/services': typeof ServicesRoute
   '/story': typeof StoryRoute
-  '/work': typeof WorkRouteWithChildren
+  '/work': typeof WorkRoute
   '/collections/$slug': typeof CollectionsSlugRoute
   '/work/$slug': typeof WorkSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/collections': typeof CollectionsRouteWithChildren
+  '/collections': typeof CollectionsRoute
   '/contact': typeof ContactRoute
   '/products': typeof ProductsRoute
   '/quote': typeof QuoteRoute
   '/services': typeof ServicesRoute
   '/story': typeof StoryRoute
-  '/work': typeof WorkRouteWithChildren
+  '/work': typeof WorkRoute
   '/collections/$slug': typeof CollectionsSlugRoute
   '/work/$slug': typeof WorkSlugRoute
 }
@@ -107,15 +107,15 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/collections': typeof CollectionsRouteWithChildren
+  '/collections': typeof CollectionsRoute
   '/contact': typeof ContactRoute
   '/products': typeof ProductsRoute
   '/quote': typeof QuoteRoute
   '/services': typeof ServicesRoute
   '/story': typeof StoryRoute
-  '/work': typeof WorkRouteWithChildren
-  '/collections/$slug': typeof CollectionsSlugRoute
-  '/work/$slug': typeof WorkSlugRoute
+  '/work': typeof WorkRoute
+  '/collections_/$slug': typeof CollectionsSlugRoute
+  '/work_/$slug': typeof WorkSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -155,20 +155,22 @@ export interface FileRouteTypes {
     | '/services'
     | '/story'
     | '/work'
-    | '/collections/$slug'
-    | '/work/$slug'
+    | '/collections_/$slug'
+    | '/work_/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  CollectionsRoute: typeof CollectionsRouteWithChildren
+  CollectionsRoute: typeof CollectionsRoute
   ContactRoute: typeof ContactRoute
   ProductsRoute: typeof ProductsRoute
   QuoteRoute: typeof QuoteRoute
   ServicesRoute: typeof ServicesRoute
   StoryRoute: typeof StoryRoute
-  WorkRoute: typeof WorkRouteWithChildren
+  WorkRoute: typeof WorkRoute
+  CollectionsSlugRoute: typeof CollectionsSlugRoute
+  WorkSlugRoute: typeof WorkSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -236,55 +238,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WorkRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/collections/$slug': {
-      id: '/collections/$slug'
-      path: '/$slug'
+    '/collections_/$slug': {
+      id: '/collections_/$slug'
+      path: '/collections/$slug'
       fullPath: '/collections/$slug'
       preLoaderRoute: typeof CollectionsSlugRouteImport
-      parentRoute: typeof CollectionsRoute
+      parentRoute: typeof rootRouteImport
     }
-    '/work/$slug': {
-      id: '/work/$slug'
-      path: '/$slug'
+    '/work_/$slug': {
+      id: '/work_/$slug'
+      path: '/work/$slug'
       fullPath: '/work/$slug'
       preLoaderRoute: typeof WorkSlugRouteImport
-      parentRoute: typeof WorkRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
 
-interface CollectionsRouteChildren {
-  CollectionsSlugRoute: typeof CollectionsSlugRoute
-}
-
-const CollectionsRouteChildren: CollectionsRouteChildren = {
-  CollectionsSlugRoute: CollectionsSlugRoute,
-}
-
-const CollectionsRouteWithChildren = CollectionsRoute._addFileChildren(
-  CollectionsRouteChildren,
-)
-
-interface WorkRouteChildren {
-  WorkSlugRoute: typeof WorkSlugRoute
-}
-
-const WorkRouteChildren: WorkRouteChildren = {
-  WorkSlugRoute: WorkSlugRoute,
-}
-
-const WorkRouteWithChildren = WorkRoute._addFileChildren(WorkRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  CollectionsRoute: CollectionsRouteWithChildren,
+  CollectionsRoute: CollectionsRoute,
   ContactRoute: ContactRoute,
   ProductsRoute: ProductsRoute,
   QuoteRoute: QuoteRoute,
   ServicesRoute: ServicesRoute,
   StoryRoute: StoryRoute,
-  WorkRoute: WorkRouteWithChildren,
+  WorkRoute: WorkRoute,
+  CollectionsSlugRoute: CollectionsSlugRoute,
+  WorkSlugRoute: WorkSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

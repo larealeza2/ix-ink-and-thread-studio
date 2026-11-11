@@ -15,16 +15,16 @@ const BLOCKS: [string, string][] = [
   ["Vision", "To be Kampala's most trusted partner for creative, wearable branding."],
   ["Creativity", "We bring fresh ideas to every design and help your artwork look its best on fabric."],
   ["Quality", "We use reliable materials and check every piece before it leaves our studio."],
-  ["Reliability", "Clear quotes, honest timelines and delivery when we say we will."],
+  ["Reliability", "Clear quotes, honest timelines and agreed collection and delivery arrangements."],
   ["Our team", "Designers, printers and embroidery specialists who care about the details of your brand."],
 ];
 
 function About() {
   return (
     <>
-      <PageHero eyebrow="About" title="A studio for brands that show up." intro="IX Concepts Limited is a printing, custom apparel and branding business based in Kampala, Uganda." img={IMG.corporate} />
+      <PageHero eyebrow="About" title="A studio for brands that show up." intro="An independent creative merchandise studio in Kampala, connecting brands with the things people wear, carry and use." img={IMG.corporate} />
       <section className="container-x grid gap-12 py-16 md:grid-cols-2 md:py-28">
-        <SectionHeading eyebrow="Company overview" title="Printing, apparel and branding — under one roof." />
+        <SectionHeading eyebrow="Company overview" title="A considered identity, on things that matter." />
         <Reveal className="space-y-5 text-lg leading-relaxed text-muted-foreground">
           <p>We help businesses, organisations and individuals put their identity on the things people wear and use — custom T-shirts, caps and hoodies, corporate wear and uniforms, garment printing, embroidery and promotional merchandise.</p>
           <p>Every project starts with a conversation about your brand, your audience and your timeline.</p>

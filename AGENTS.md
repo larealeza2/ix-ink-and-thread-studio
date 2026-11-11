@@ -10,7 +10,12 @@
 <!-- LOVABLE:END -->
 
 ## Project rules
-- Business/contact details and the WhatsApp number live only in src/config/site.ts; unverified values stay null so the UI shows "to be confirmed" instead of invented facts.
+- Business/contact details and the WhatsApp number live only in src/config/site.ts so contact channels remain consistent.
 - Catalog, services and gallery data live in src/data/catalog.ts so demo images can be swapped for approved photos in one place.
 - No backend, cart or payments: enquiries go to WhatsApp via src/lib/whatsapp.ts (covered by whatsapp.test.ts).
 - Brand colours are --brand-* tokens in src/styles.css; components use semantic utilities (btn-primary, text-espresso, etc.), never raw colours.
+
+- Keep collection and portfolio detail routes unnested from their listing pages so full-page case studies render independently.
+- Keep quote selection in the shared QuoteBasket provider and validate quote details in src/lib/quote-schema.ts; both feed the existing WhatsApp handoff without checkout.
+- Store collection manifests and case-study narratives with the central catalog to keep the included products consistent across pages and enquiries.
+- Render the shared closing invitation from components/site/CtaBand rather than importing a route component across pages.
